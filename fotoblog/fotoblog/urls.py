@@ -24,14 +24,14 @@ import blog.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('login/', authentication.views.login_page, name='login'),
+    path('login/', authentication.views.login_page, name='login'),
     # path('login/', authentication.views.LoginPageView.as_view(), name='login'),
 
-    path('', LoginView.as_view(
-                template_name='authentication/login.html',
-                redirect_authenticated_user=True),
-                name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    # path('', LoginView.as_view(
+    #             template_name='authentication/login.html',
+    #             redirect_authenticated_user=True),
+    #             name='login'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
 
     path('change-password/', PasswordChangeView.as_view(
         template_name='authentication/password_change_form.html'),
@@ -41,6 +41,6 @@ urlpatterns = [
         template_name='authentication/password_change_done.html'),
          name='password_change_done'
          ),
-    # path('logout/', authentication.views.logout_user, name='logout'),
+    path('logout/', authentication.views.logout_user, name='logout'),
     path('home/', blog.views.home, name='home'),
 ]
