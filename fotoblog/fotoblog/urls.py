@@ -50,6 +50,8 @@ urlpatterns = [
 
     path('photo/upload/', blog.views.photo_upload, name='photo_upload'),
 
+    path('upload-profile-photo/', authentication.views.upload_profile_photo, name='upload_profile_photo'),
+
 ]
 
 
