@@ -25,6 +25,8 @@ import blog.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', authentication.views.login_page, name='login'),
+    path('signup/', authentication.views.signup_page, name='signup'),
+
     # path('login/', authentication.views.LoginPageView.as_view(), name='login'),
 
     # path('', LoginView.as_view(
