@@ -26,12 +26,11 @@ class Photo(models.Model):
         super().save(*args, **kwargs)
         self.resize_image()
 
-class Blog(models.Model):
 
+class Blog(models.Model):
     photo = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL, blank=True)
     title = models.CharField(max_length=128)
     content = models.CharField(max_length=5000)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='contributions')
     date_created = models.DateTimeField(auto_now_add=True)
     starred = models.BooleanField(default=False)
