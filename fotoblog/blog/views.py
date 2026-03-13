@@ -7,6 +7,18 @@ from . import forms, models
 
 
 @login_required
+def follow_users(request):
+    form = forms.FollowUsersForm(instance=request.user)
+    if request.method == 'POST':
+        form = forms.FollowUsersForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    return render(request, 'blog/follow_users_form.html', context={'form': form})
+
+
+
+@login_required
 @permission_required('blog.add_photo')
 def create_multiple_photos(request):
     PhotoFormSet = formset_factory(forms.PhotoForm, extra=5)
@@ -65,9 +77,9 @@ def blog_and_photo_upload(request):
             photo.uploader = request.user
             photo.save()
             blog = blog_form.save(commit=False)
-            blog.author = request.user
             blog.photo = photo
             blog.save()
+            blog.contributors.add(request.user, through_defaults={'contribution': 'Auteur principal'})
             return redirect('home')
     context = {'blog_form': blog_form, 'photo_form': photo_form}
     return render(request, 'blog/create_blog_post.html', context=context)

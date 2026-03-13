@@ -5,6 +5,10 @@ from django.views.generic import View
 
 from . import forms
 
+
+
+
+
 def upload_profile_photo(request):
     form = forms.UploadProfilePhotoForm(instance=request.user)
     if request.method == 'POST':
