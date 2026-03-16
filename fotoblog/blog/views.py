@@ -92,8 +92,8 @@ def blog_and_photo_upload(request):
 
 @login_required
 def home(request):
-    blogs = models.Blog.objects.filter(Q(author__in=request.user.follows) | Q(starred=True))
-    photos = models.Photo.objects.filter(uploader__in=request.user.follows).exclude(blog__in=blogs)
+    blogs = models.Blog.objects.filter(Q(contributors__in=request.user.follows.all()) | Q(starred=True))
+    photos = models.Photo.objects.filter(uploader__in=request.user.follows.all()).exclude(blog__in=blogs)
     blogs_and_photos = sorted(
         chain(blogs, photos),
         key=lambda instance: instance.date_created,
